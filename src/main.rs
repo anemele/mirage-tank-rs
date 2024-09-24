@@ -1,11 +1,23 @@
 use clap::Parser;
 
 mod cli;
+mod de;
 mod img;
 
+use cli::Cli;
+
 fn main() -> anyhow::Result<()> {
-    let args = cli::Args::parse();
-    // dbg!(args);
-    img::make(&args.top_image, &args.bottom_image, &args.output)?;
+    match Cli::parse() {
+        Cli::Make {
+            top_image,
+            bottom_image,
+            output,
+        } => {
+            img::make(&top_image, &bottom_image, &output)?;
+        }
+        Cli::De { input } => {
+            de::operate(&input)?;
+        }
+    }
     Ok(())
 }
