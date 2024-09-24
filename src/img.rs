@@ -42,10 +42,8 @@ fn darken(image: &mut GrayImage) -> anyhow::Result<()> {
 }
 
 fn same_size_and_center(top: &GrayImage, bottom: &GrayImage) -> (GrayImage, GrayImage) {
-    let tw = top.width();
-    let th = top.height();
-    let bw = bottom.width();
-    let bh = bottom.height();
+    let (tw, th) = top.dimensions();
+    let (bw, bh) = bottom.dimensions();
 
     let width = tw.max(bw);
     let height = th.max(bh);
