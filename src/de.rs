@@ -35,7 +35,8 @@ fn separate_mirage_tank(img: &GrayAlphaImage) -> (GrayImage, GrayImage) {
                 top.put_pixel(x, y, pixel);
                 bottom.put_pixel(x, y, pixel);
             } else {
-                let v = (gray as f32 / 255.0 * alpha as f32).round() as u8;
+                // let v = (gray as f32 / 255.0 * alpha as f32).round() as u8;
+                let v = (gray as u32 * alpha as u32 / 255) as u8;
                 let bottom_pixel = Luma([v]);
                 let top_pixel = Luma([255 - alpha + v]); // 先减后加，否则会整数溢出
                 bottom.put_pixel(x, y, bottom_pixel);
